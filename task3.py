@@ -1,9 +1,10 @@
 import re
+
 def normalize_phone(phone_number):
     phone_number = phone_number.strip() #remove spaces
     pattern = r"[^\d+]"
     cleared_phone = re.sub(pattern,"",phone_number) #remove all specific symbols except from +
-    if cleared_phone.startswith('+38'):
+    if cleared_phone.startswith('+'):
         normalized_phone = cleared_phone
     elif cleared_phone.startswith('380'):
         normalized_phone = '+'+cleared_phone
@@ -15,6 +16,7 @@ def normalize_phone(phone_number):
 
 raw_numbers = [
     "067\\t123 4567",
+    "+48123456789",
     "(095) 234-5678\\n",
     "+380 44 123 4567",
     "380501234567",
@@ -26,4 +28,3 @@ raw_numbers = [
 ]
 sanitized_numbers = [normalize_phone(num) for num in raw_numbers]
 print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)
-    
